@@ -1,6 +1,6 @@
 import java.awt.*;
 
-class Triangle {
+class Triangle extends TwoDimensionalShape {
     Triangle(int a,int b,int c){
 
     }

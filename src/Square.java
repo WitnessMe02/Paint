@@ -1,13 +1,16 @@
 import java.awt.*;
 
-class Square {
+class Square extends TwoDimensionalShape {
     private int side;
     private int x,y;
-    Square(int side){
+    private Color color;
+    Square(int side, Color color){
         this.side = side;
+        this.color = color;
     }
     public void paint(Graphics g){
-        g.drawRect(x,y,side,side);
+        g.setColor(color);
+        g.fillRect(x,y,side,side);
     }
 
     public int getX() {

@@ -2,6 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 
 class Paint extends JFrame {
+//    public void paint(Graphics g) {
+//        g.drawString("Hello",40,40);
+//        setBackground(Color.WHITE);
+//        g.fillRect(130, 30,100, 80);
+//        g.drawOval(30,130,50, 60);
+//        setForeground(Color.RED);
+//        g.fillOval(130,130,50, 60);
+//        g.drawArc(30, 200, 40,50,90,60);
+//        g.fillArc(30, 130, 40,50,180,40);
+//
+//    }
     private Paint(String title){
         super(title);
         setSize(500,500);
@@ -21,6 +32,8 @@ class Paint extends JFrame {
         menu.add(shapesMenu[3]);
         jMenuBar.add(menu);
         setJMenuBar(jMenuBar);
+
+
     }
     public static void main(String args[]){
         Paint paint = new Paint("Paint");

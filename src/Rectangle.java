@@ -1,18 +1,21 @@
 import java.awt.*;
 
-class Rectangle {
+class Rectangle extends TwoDimensionalShape {
     private int width,height;
     private int x,y;
+    private Color color;
 
-    Rectangle(int width,int height){
+    Rectangle(int width, int height, Color color){
         this.width = width;
         this.height = height;
-//        y = 40;
-//        x = 40;
+        y = 100;
+        x = 100;
+        this.color = color;
     }
 
     public void paint(Graphics g){
-        g.drawRect(x,y,width,height);
+        g.setColor(color);
+        g.fillRect(x,y,width,height);
     }
 
     public int getWidth() {

@@ -1,14 +1,24 @@
+import javax.swing.*;
 import java.awt.*;
 
-class Circle {
+class Circle extends JComponent {
     private int radius;
     private int x,y;
-    Circle(int radius){
+    private Color color;
+    Circle(int radius, Color color){
+        this.color = color;
         this.radius = radius;
+        x=100;
+        y=100;
+        setBounds(x,y,radius,radius);
+        setBackground(Color.BLACK);
+        setForeground(Color.RED);
+        setVisible(true);
     }
-    public void paint(Graphics g){
-        g.drawOval(40,40,radius,radius);
-    }
+//    public void draw(Graphics g){
+//        g.setColor(color);
+//        g.fillOval(x,y,radius,radius);
+//    }
 
     public int getRadius() {
         return radius;

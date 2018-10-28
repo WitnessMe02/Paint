@@ -73,12 +73,10 @@ class Paint extends JFrame {
                 jLayeredPane.add(shape,0);
             }
         });
-
         Circle circle = new Circle(50, 50, 100, Color.RED, currentFrame);
         Circle circle1 = new Circle(300, 300, 100, Color.BLACK, currentFrame);
         jLayeredPane.add(circle1,1);
         jLayeredPane.add(circle,0);
-       // repaint();
     }
 
     public static void main(String args[]) {
@@ -104,31 +102,11 @@ class Paint extends JFrame {
         }
     }
 
-    private class MouseHandler implements MouseListener {
+    private class MouseHandler extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
             setSelectedShape(null);
             requestFocus();
-        }
-
-        @Override
-        public void mousePressed(MouseEvent mouseEvent) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent mouseEvent) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent mouseEvent) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent mouseEvent) {
-
         }
     }
 

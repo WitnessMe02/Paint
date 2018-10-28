@@ -16,9 +16,10 @@ abstract class Shape extends JComponent {
         super();
         currentShape=this;
         this.currentFrame = currentFrame;
-        addMouseListener(new MouseListener() {
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
+                super.mouseClicked(mouseEvent);
                 requestFocusInWindow();
                 System.out.println("shape clicked");
                 currentFrame.setSelectedShape(currentShape);
@@ -28,6 +29,7 @@ abstract class Shape extends JComponent {
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
+                super.mousePressed(mouseEvent);
                 requestFocusInWindow();
                 currentFrame.setSelectedShape(currentShape);
                 currentFrame.getLayeredPane().setPosition(currentShape,0);
@@ -38,25 +40,11 @@ abstract class Shape extends JComponent {
                 myWidth = getWidth();
                 myHeight = getHeight();
             }
-
-            @Override
-            public void mouseReleased(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent mouseEvent) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent mouseEvent) {
-
-            }
         });
-        addMouseMotionListener(new MouseMotionListener() {
+        addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent mouseEvent) {
+                super.mouseDragged(mouseEvent);
                 int deltaX = mouseEvent.getXOnScreen() - screenX;
                 int deltaY = mouseEvent.getYOnScreen() - screenY;
                 if(mouseEvent.isControlDown()){
@@ -66,19 +54,9 @@ abstract class Shape extends JComponent {
                     setLocation(myX+deltaX,myY+deltaY);
                 }
             }
-
-            @Override
-            public void mouseMoved(MouseEvent mouseEvent) {
-
-            }
         });
 
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent keyEvent) {
-
-            }
-
+        addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent keyEvent) {
                 int keyCode = keyEvent.getKeyCode();
@@ -174,11 +152,6 @@ abstract class Shape extends JComponent {
 
 
                 }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent keyEvent) {
-
             }
         });
     }

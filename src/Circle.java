@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 
 class Circle extends Shape {
@@ -32,13 +31,8 @@ class Circle extends Shape {
     public Color getColor() {
         return color;
     }
-
-
     @Override
     public void changeSize(int i, int i1) {
-//        if(i!=i1){
-//            return;
-//        }
         radius = i;
         setSize(radius,radius);
         repaint();

@@ -7,8 +7,8 @@ abstract class Shape extends JComponent {
     private int screenY = 0;
     private int myX = 0;
     private int myY = 0;
-    Paint currentFrame;
-    Shape currentShape;
+    private Paint currentFrame;
+    private Shape currentShape;
     private int myWidth=0;
     private int myHeight=0;
 
@@ -20,16 +20,17 @@ abstract class Shape extends JComponent {
             @Override
             public void mouseClicked(MouseEvent mouseEvent) {
                 requestFocusInWindow();
-                repaint();
                 System.out.println("shape clicked");
                 currentFrame.setSelectedShape(currentShape);
-                // repaint();
+                currentFrame.getLayeredPane().setPosition(currentShape,0);
+                repaint();
             }
 
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
                 requestFocusInWindow();
                 currentFrame.setSelectedShape(currentShape);
+                currentFrame.getLayeredPane().setPosition(currentShape,0);
                 screenX = mouseEvent.getXOnScreen();
                 screenY = mouseEvent.getYOnScreen();
                 myX = getX();
@@ -124,47 +125,49 @@ abstract class Shape extends JComponent {
                     else{
                         switch (keyCode) {
                             case KeyEvent.VK_UP:
-                                selectedShape.setLocation(selectedShape.getX(), selectedShape.getY() - 2);
+                                selectedShape.setLocation(selectedShape.getX(), selectedShape.getY() - 4);
                                 System.out.println("UP clicked");
                                 break;
                             case KeyEvent.VK_DOWN:
-                                selectedShape.setLocation(selectedShape.getX(), selectedShape.getY() + 2);
+                                selectedShape.setLocation(selectedShape.getX(), selectedShape.getY() + 4);
                                 System.out.println("Down clicked");
                                 break;
                             case KeyEvent.VK_LEFT:
-                                selectedShape.setLocation(selectedShape.getX() - 2, selectedShape.getY());
+                                selectedShape.setLocation(selectedShape.getX() - 4, selectedShape.getY());
                                 System.out.println("Left clicked");
                                 break;
                             case KeyEvent.VK_RIGHT:
-                                selectedShape.setLocation(selectedShape.getX() + 2, selectedShape.getY());
+                                selectedShape.setLocation(selectedShape.getX() + 4, selectedShape.getY());
                                 System.out.println("Right clicked");
                                 break;
                             case KeyEvent.VK_EQUALS:
-                                selectedShape.changeSize(selectedShape.getWidth() + 2, selectedShape.getHeight() + 2);
+                                selectedShape.changeSize(selectedShape.getWidth() + 4, selectedShape.getHeight() + 4);
                                 System.out.println("Plus clicked");
                                 break;
                             case KeyEvent.VK_ADD:
-                                selectedShape.changeSize(selectedShape.getWidth() + 2, selectedShape.getHeight() + 2);
+                                selectedShape.changeSize(selectedShape.getWidth() + 4, selectedShape.getHeight() + 4);
                                 System.out.println("Plus clicked");
                                 break;
                             case KeyEvent.VK_MINUS:
-                                selectedShape.changeSize(selectedShape.getWidth() - 2, selectedShape.getHeight() - 2);
+                                selectedShape.changeSize(selectedShape.getWidth() - 4, selectedShape.getHeight() - 4);
                                 System.out.println("Minus clicked");
                                 break;
                             case KeyEvent.VK_SUBTRACT:
-                                selectedShape.changeSize(selectedShape.getWidth() - 2, selectedShape.getHeight() - 2);
+                                selectedShape.changeSize(selectedShape.getWidth() - 4, selectedShape.getHeight() - 4);
                                 System.out.println("Minus clicked");
                                 break;
                             case KeyEvent.VK_DELETE:
-                                remove(selectedShape);
+                                currentFrame.getLayeredPane().remove(selectedShape);
+                                currentFrame.getAllShapes().remove(selectedShape);
                                 currentFrame.setSelectedShape(null);
-                                repaint();
+                                currentFrame.repaint();
                                 System.out.println("Delete clicked");
                                 break;
                             case KeyEvent.VK_C:
                                 Color color = JColorChooser.showDialog(currentFrame, "Select a Color", selectedShape.getColor());
+                                if(color!=null){
                                 selectedShape.setColor(color);
-                                selectedShape.setColor(color);
+                                selectedShape.setColor(color);}
                         }
                     }
 
@@ -178,17 +181,8 @@ abstract class Shape extends JComponent {
 
             }
         });
-
-
-
     }
     public abstract void setColor(Color color);
     public abstract  Color getColor();
     public abstract void changeSize(int i, int i1);
 }
-//class TwoDimensionalShape extends Shape{
-//
-//}
-//class ThreeDimensionalShape extends Shape{
-//
-//}

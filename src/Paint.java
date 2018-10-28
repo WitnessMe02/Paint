@@ -8,10 +8,8 @@ class Paint extends JFrame {
     private ArrayList<Shape> shapes = new ArrayList<>();
     private Shape selectedShape;
     private Paint currentFrame;
-    // private JLayeredPane jLayeredPane = new JLayeredPane();
-    //private JScrollPane drawPanel;
     private Color selectedColor = Color.RED;
-    private Color selectedEditColor = selectedColor;
+    private JLayeredPane jLayeredPane;
 
     private Paint(String title) {
         super(title);
@@ -19,10 +17,11 @@ class Paint extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(150, 150, 700, 700);
         addMouseListener(new MouseHandler());
-        setLayout(null);
+        jLayeredPane = getLayeredPane();
+        getLayeredPane().setLayout(null);
         currentFrame = this;
 
-        JToolBar createToolbar = new JToolBar();
+        JToolBar createToolbar = new JToolBar("Create a New Object");
         Object[] shapesSelectorList = {"Circle", "Square", "Rectangle"};
         JComboBox shapeSelector = new JComboBox(shapesSelectorList);
 
@@ -42,56 +41,57 @@ class Paint extends JFrame {
         JMenuBar jMenuBar = new JMenuBar();
         jMenuBar.add(createToolbar);
         setJMenuBar(jMenuBar);
+        jMenuBar.requestFocus();
         colorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 selectedColor = JColorChooser.showDialog(Paint.this, "Select a Color", Color.RED);
+                if(selectedColor!=null){
                 colorButton.setBackground(selectedColor);
-                colorButton.setForeground(selectedColor);
+                colorButton.setForeground(selectedColor);}
             }
         });
-
-
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Shape shape = null;
                 switch (shapeSelector.getSelectedItem().toString()) {
                     case "Circle":
-                        shape = new Circle(0, 0, 100, selectedColor, currentFrame);
+                        shape = new Circle(50, 50, 100, selectedColor, currentFrame);
                         break;
                     case "Square":
-                        shape = new Square(0, 0, 100, selectedColor, currentFrame);
+                        shape = new Square(50, 50, 100, selectedColor, currentFrame);
                         break;
                     case "Rectangle":
-                        shape = new Rectangle(0, 0, 200, 100, selectedColor, currentFrame);
+                        shape = new Rectangle(50, 50, 200, 100, selectedColor, currentFrame);
                         break;
                     default:
                         System.out.println("No Shape Selected");
                         break;
                 }
                 shapes.add(shape);
-                add(shape);
-                repaint();
-
+                jLayeredPane.add(shape,0);
             }
         });
 
-        Circle circle = new Circle(0, 0, 100, Color.RED, currentFrame);
+        Circle circle = new Circle(50, 50, 100, Color.RED, currentFrame);
         Circle circle1 = new Circle(300, 300, 100, Color.BLACK, currentFrame);
-
-        add(circle1);
-        add(circle);
-        repaint();
+        jLayeredPane.add(circle1,1);
+        jLayeredPane.add(circle,0);
+       // repaint();
     }
 
     public static void main(String args[]) {
         Paint paint = new Paint("Paint");
+        paint.repaint();
 
     }
 
     public Shape getSelectedShape() {
         return selectedShape;
+    }
+    public ArrayList<Shape> getAllShapes(){
+        return shapes;
     }
 
     public void setSelectedShape(Shape selectedShape) {

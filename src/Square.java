@@ -1,39 +1,36 @@
 import java.awt.*;
 
-class Square extends TwoDimensionalShape {
+class Square extends Shape {
     private int side;
     private int x,y;
     private Color color;
-    Square(int side, Color color){
+    Square(int x,int y,int side, Color color,Paint currentFrame){
+        super(currentFrame);
+        this.x=x;
+        this.y=y;
         this.side = side;
         this.color = color;
+        setBounds(x,y,side,side);
     }
-    public void paint(Graphics g){
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
         g.setColor(color);
-        g.fillRect(x,y,side,side);
+        g.fillRect(0,0,side,side);
     }
-
-    public int getX() {
-        return x;
+    @Override
+    public void changeSize(int i, int i1) {
+        side=i;
+        setSize(side,side);
+        repaint();
     }
-
-    public void setX(int x) {
-        this.x = x;
+    public Color getColor() {
+        return color;
     }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getSide() {
-        return side;
-    }
-
-    public void setSide(int side) {
-        this.side = side;
+    @Override
+    public void setColor(Color color) {
+        this.color= color;
+        repaint();
     }
 }

@@ -1,52 +1,42 @@
 import java.awt.*;
 
-class Rectangle extends TwoDimensionalShape {
-    private int width,height;
-    private int x,y;
+class Rectangle extends Shape {
+    private int width, height;
+    private int x, y;
     private Color color;
 
-    Rectangle(int width, int height, Color color){
-        this.width = width;
-        this.height = height;
-        y = 100;
-        x = 100;
-        this.color = color;
-    }
-
-    public void paint(Graphics g){
-        g.setColor(color);
-        g.fillRect(x,y,width,height);
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setX(int x) {
+    Rectangle(int x, int y, int width, int height, Color color,Paint currentFrame) {
+        super(currentFrame);
         this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        setBounds(x, y, width, height);
     }
 
-    public int getX(){
-        return x;
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        g.setColor(color);
+        g.fillRect(0,0,width,height);
     }
 
-    public int getY(){
-        return y;
+    @Override
+    public void changeSize(int i, int i1) {
+        width = i;
+        height = i1;
+        setSize(width,height);
+        repaint();
+    }
+    public Color getColor() {
+        return color;
+    }
+    @Override
+    public void setColor(Color color) {
+        this.color= color;
+        repaint();
     }
 }
+

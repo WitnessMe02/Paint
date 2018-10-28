@@ -1,46 +1,46 @@
 import javax.swing.*;
 import java.awt.*;
 
-class Circle extends JComponent {
+class Circle extends Shape {
     private int radius;
     private int x,y;
+
     private Color color;
-    Circle(int radius, Color color){
+    Circle(int x, int y, int radius, Color color, Paint currentFrame) {
+        super(currentFrame);
         this.color = color;
         this.radius = radius;
-        x=100;
-        y=100;
-        setBounds(x,y,radius,radius);
-        setBackground(Color.BLACK);
-        setForeground(Color.RED);
-        setVisible(true);
-    }
-//    public void draw(Graphics g){
-//        g.setColor(color);
-//        g.fillOval(x,y,radius,radius);
-//    }
-
-    public int getRadius() {
-        return radius;
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
         this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
         this.y = y;
+        setBounds(x, y, radius + 1, radius + 1);
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        g.setColor(color);
+        g.fillOval(0,0,radius,radius);
+    }
+
+    @Override
+    public void setColor(Color color) {
+        this.color= color;
+        repaint();
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+
+    @Override
+    public void changeSize(int i, int i1) {
+//        if(i!=i1){
+//            return;
+//        }
+        radius = i;
+        setSize(radius,radius);
+        repaint();
     }
 }
